@@ -1,0 +1,92 @@
+---
+title: "Intro to R-Markdown"
+author: "Zayd Omar"
+date: "12/01/2022"
+output: pdf_document
+---
+<!-- This top part leave is essential. You can change some of the info above but make sure the 4 things are there -->
+
+# R Markdown Intro
+
+We can use R-markdown to typeset our work and solutions. Since we will be doing a lot of work on R, where you will need to show your code and solutions, this might be a better option since it will directly allow you to integrate your code and responses into one neat document. 
+
+You need to know the Syntax of R-markdown, which is not too difficult to learn. You can very easily integrate some Latex functions into a markdown document (For Latex purists a better option might be to use Knitr which also allows you to integrate your code and writing together.)
+
+
+# Some basics function: 
+
+  1) \# This is used to indicate a new section
+  2) \#\# This is used to indicate a new subsection
+  3) \#\#\# This is used to indicate a new subsubsection
+  4) Comment out text by hilighting them and clicking cmd+shft+c on MAC and cntrl+shft+c on Window
+  5) Italics, by putting * on both sides of the word, example *this is an italic*
+  6) Bold, by putting * on both sides, example **this is a bold font**
+  7) Bold and Italic, by putting three * on both sides, example ***bold and italic***
+  
+## Latex Functions:
+  You can bring in a whole host of Latex functions. Primarily for us the functions related to writing equations will be the most useful.
+  
+  i) An *in line* equation can be written by in the following manner \$ equation \$, example of an in line equation $y=mx+c$.
+  ii) An equation on a separate line may be written as, \$\$ equation \$\$, example, $$y=mx+c$$.
+  iii) We can also use some of the Latex fonts, such as backslash+mathbb or backslash+mathcal, example, $\mathbb{R}$, $\mathcal{L}$.
+
+# This is a new section
+## This is a new subsection
+### This is a new subsubsection
+
+
+Thus hashtags are used to indicate sections, if you want to use a hashtag in the document NOT signify a new section you will need to do a backslash+hastag, like this \#.
+
+# R Code Integration:
+
+Your $\mathtt{R}$ code can be integrated into R-markdown using what is called chunks. Chunks will always have the following format, 
+
+
+
+```{R, chunk_name, echo = TRUE}
+print("This chunk will only show the results and the code")
+a = 1
+b = 2
+c = c(1,2,3,4,5,6,7,8,9)
+
+a+b
+
+c^2
+
+
+```
+
+
+Here is a hidden chunk, 
+
+```{R, chunk_2, echo = FALSE}
+print("This chunk will only show the results and not the code")
+a = 1
+b = 2
+c = c(1,2,3,4,5,6,7,8,9)
+
+a+b
+
+c^2
+
+
+```
+
+
+
+Here is another chunk, where we used some data from Tutorial 1.
+
+```{R, plot_funcct, echo = TRUE}
+data = read.csv("/Users/zaydomar/Dropbox/Zayd/Class_Notes/MATH 204 Principles of Statistics/Tutorials/Tutorial 1/Temp_Data.csv")
+
+plot(data$Ext,data$Force, xlab = "Extension", ylab = "Force", main = "Extension vs Force" )
+
+
+
+```
+
+
+
+
+
+
