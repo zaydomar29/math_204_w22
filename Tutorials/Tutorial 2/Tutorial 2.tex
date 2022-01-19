@@ -1,0 +1,121 @@
+\documentclass{beamer}
+
+
+\usepackage{bm}
+
+\title{Tutorial 2}
+\subtitle{Simple Linear Regression}
+
+%\usetheme{lucid}
+\begin{document}
+	\frame {
+		\titlepage
+	}
+	
+	
+	\begin{frame}{Review: Simple Linear Regression}
+		\begin{itemize}
+			\item We want to model the following linear relationship, $y_i=\beta_0+\beta_1x_i+\epsilon_i$, where $i=1,...,n$.
+			\item \textbf{Assumptions}: $\epsilon_i$ are i.i.d with mean $0$ and variance $\sigma^2$.
+			\item \textbf{Method:} We use the least squares method.
+			\item \textbf{Intuition:} What are we modeling? We are modeling the \textbf{mean response} of $Y$ at/given $X$, i.e. we are modeling $E(y_i)=\beta_0+\beta_1x_i$.
+			\item \textbf{Check:} Is the relationship linear? Plot the data to check
+			\item Simple linear regression can be easily done by hand (although this might be painstakingly slow to do given the sample size).
+			\item Ideally, we will do all of our calculation on a software.
+		\end{itemize}
+	\end{frame}
+	
+	
+	\begin{frame}{Parameter Estimates}
+		\begin{itemize}
+			\item Coefficient,
+			\begin{align*}
+				\begin{split}
+					\hat{\beta}_1 &= \frac{S_{xy}}{S_{xx}}=\frac{\sum^n_{i=1} (x_i-\bar{x})(y_i-\bar{y})}{ \sum^n_{i=1}  (x_i-\bar{x})^2}\\
+					\hat{\beta}_0 &= \bar{y}-\hat{\beta}_1\bar{x} 
+				\end{split}
+			\end{align*}
+			
+			\item Estimator of the variance, $$\hat{\sigma}^2=\frac{SSE}{n-2}$$
+			
+			
+			\item Variance of the coefficients,
+			
+			\begin{align*}
+				\begin{split}
+					\hat{\sigma}^2_{\hat{\beta}_1} &= \frac{\hat{\sigma}^2}{S_{xx}}\\
+					\hat{\sigma}^2_{\hat{\beta}_0} &= \hat{\sigma}^2 \Big(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\Big)
+				\end{split}
+			\end{align*}
+			
+			
+		\end{itemize}
+	\end{frame}
+	
+	
+	\begin{frame}{Sum of Squares:}
+		\begin{itemize}
+			\item Total Sum of Squares $\bm{SST}=\sum_{i=1}^n(y_i-\bar{y})^2$
+			\item Regression Sum of Squares $\bm{SSReg}=\sum_{i=1}^n(\hat{y}_i-\bar{y})^2$
+			\item Residual (Error) Sum of Squares $\bm{SSE}=\sum_{i=1}^n(y_i-\hat{y})^2$
+			\item These combine to give the following crucial relationship,$$SST = SSReg+SSE$$
+			\item (Observers with a strong background in linear algebra may recognize this as a simple application of the Pythagorean theorem, where the vector space are given by the orthogonal space of the regressors and the space or unexplained errors.)
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Example 1: }
+		\begin{itemize}
+			\item Using the $\mathtt{Temp\_Data.csv}$ data, regress $Force$ on $Temp$.
+			\item Show in details how the coefficients are calculated.
+			\item Give an interpretation of the parameter estimates.
+			\item Make a residual plot and comment on it.
+			\item Show how the standard error of the estimator. $\hat{\beta}_1$ is calculated.
+			\item Test the hypothesis $H_0:\beta_1=0$ at $\alpha=0.05$.
+			\item Find the $SST$, $SSReg$ and $SSR$ and show that these values match with those obtained using the anova function.
+			\item Find the 95\% CI for $\hat{\beta}_0$ and $\hat{\beta}_1$.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+	\begin{frame}{Example 2: Some essential calculations and simplifications}
+		\begin{itemize}
+			\item Show $\sum_{i=1}^n (x_i-\bar{x})^2 = \sum_{i=1}^n x_i^2- n\bar{x}^2$
+			\item Show a similar result for $\sum_{i=1}^n (y_i-\bar{y})^2$
+			\item Show $\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y}) = \sum_{i=1}^n x_iy_i- n\bar{x}\bar{y}$
+			\item You'll soon see how these results will help in calculating the regression results in the next problem.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Example  3: Bonus Question}
+		\begin{itemize}
+			\item This next question is an extra question which is a bit tricky but well within the means of your capability.
+			\item Show that $SST = SSReg+SSR$.
+			\item Hints: \begin{enumerate}[i)]
+				\item Start this problem in a similar manner to Example 2
+				\item Use the fact that, $\bar{y} = \hat{\beta}_0+\hat{\beta}_1\bar{x}$
+			\end{enumerate}
+			
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Have You Ever Wondered...}
+		\begin{itemize}
+			\item Our course is purely a course for applications and learning implementation.
+			\item Thus we will not spend any time proving anything
+			\item However, have you ever wondered where these results come from?
+			\item As you have probably heard in class, we ``minimize" the error term.
+			\item Any time we are thinking of minimization we are thinking of calculus or projections.
+			\item The ways of obtaining the regression coefficients are: vector calculus approach and linear algebra approach. 
+			\item Using either to get the answers is not too difficult and is usually a routine exercise in any `standard' undergraduate course on regression.
+		\end{itemize}
+	\end{frame}
+	
+	
+	
+\end{document}
+
+
+

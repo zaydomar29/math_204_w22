@@ -1,0 +1,170 @@
+---
+title: 'Tutorial 2: Accompanying Document'
+author: "Zayd"
+date: "17/01/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction:
+
+This document will be accompanying the R-example for Tutorial-2. Use this code to explore how I can use some of the functions to get different values and objects that I need to do the necessary calculations. This way you do not have to calculate everything by hand or compute everything from first principles. This is particularly useful when we need things like residuals and fitted values.
+
+
+```{r data_import, include=FALSE}
+data = read.csv("/Users/zaydomar/Dropbox/Zayd/Class_Notes/MATH 204 Principles of Statistics/Tutorials/Tutorial 1/Temp_Data.csv")
+
+```
+
+
+Fitting the regression model using the formula.
+```{r regression_model}
+
+y = data$Ext
+x = data$Force
+
+ybar = mean(y)
+xbar = mean(x)
+
+SSxy = sum((y-ybar)*(x-xbar))
+SSxx = sum((x-xbar)^2)
+
+b1_hat = SSxy/SSxx
+b0_hat = ybar-b1_hat*xbar
+
+
+
+```
+
+
+
+## Fit using $\mathtt{lm()}$
+
+```{r fit_lm}
+
+plot(x,y, xlab = "Force", ylab = "Extension")
+fit = lm(y~x)
+summary(fit)
+
+
+
+```
+
+What can we say about estimates from our formula vs the estimates provided by $\mathtt{R}$? 
+
+
+## Fitted Line
+
+```{r fitted_line}
+
+plot(x,y, xlab = "Force", ylab = "Extension")
+abline(a=fit$coefficients[1],b=fit$coefficients[2], col = "red",lwd = 3)
+
+```
+
+## Residual Plot
+
+Recall that a key assumption that we are making when fitting these simple linear regression models is that the errors are \textit{homoskedastic} and are have mean 0. For inferential purposes we sometimes make a stronger assumption that the errors are also Normally-distributed. However, for least squares method to work normality is not required.
+
+```{r, resid_plot}
+
+fit_resid = fit$residuals
+par(mfrow = c(1,2))
+plot(fit_resid, ylab="residuals")
+abline(h=0, col = "red", lwd = 3)
+
+hist(fit_resid, xlab="residuals",main = "Histogram")
+
+
+```
+
+
+<!-- What can we say based on these observations-->
+
+
+## Estimate of variances:
+
+```{r, est_var}
+
+SSE = sum((y-fit$fitted.values)^2)   
+n = length(y)
+df = n-2
+
+
+sigma2_hat = SSE/df
+
+
+
+## Standard Error of the coeficient parameters
+
+sigma_b1 = sqrt(sigma2_hat/SSxx)
+
+sigma_b0 = sqrt(sigma2_hat*(1/n+xbar^2/SSxx))
+
+
+
+
+
+```
+
+
+<!-- What can we say about our computed std error -->
+
+## Hypothesis Test
+
+We do the hypothesis $H_0:\beta_1=0$ vs $H_1:\beta_1 \neq 0$. 
+
+Recall that the statistic that we are using is given by, $$Z = \frac{\hat{\beta}_1-0}{\sigma_{\hat{\beta}_1}}$$
+
+We also need to specify a distribution to be used. If we assume here that the errors are normally distributed then we can use that fact and then use a Z-table or T-table to obtain the critical values. In our case since $n$ is fairly large, we can directly use the critical values from the Z-table.
+
+
+Question: Why are we specifically testing this hypothesis? What does a rejection or failure to rejection tell us?
+
+
+
+
+```{r hyp_test}
+
+Z = b1_hat/sigma_b1
+
+# Also need the critical value
+crti_val = qnorm(0.975)
+
+
+```
+
+
+
+
+## Finding the sums of Squares
+
+```{r sums_of_sq}
+SST = sum((y-ybar)^2)
+SSE = sum((y-fit$fitted.values)^2)   
+SSReg = sum((fit$fitted.values-ybar)^2)   
+
+
+
+```
+
+
+## Anova
+
+```{r anova}
+anova(fit)
+
+```
+
+
+<!-- Again what can we say about the anova table values and our sums of squares -->
+
+## Confidence Intervals
+```{r CI}
+confint(fit)
+
+
+```

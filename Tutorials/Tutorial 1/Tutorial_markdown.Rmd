@@ -2,7 +2,7 @@
 title: "Intro to R-Markdown"
 author: "Zayd Omar"
 date: "12/01/2022"
-output: pdf_document
+output: html_document
 ---
 <!-- This top part leave is essential. You can change some of the info above but make sure the 4 things are there -->
 
