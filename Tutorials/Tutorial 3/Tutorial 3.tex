@@ -1,0 +1,90 @@
+\documentclass{beamer}
+
+
+\usepackage{bm, enumerate}
+
+\title{Tutorial 3}
+\subtitle{Inference in Simple Linear Model}
+
+%\usetheme{lucid}
+\begin{document}
+	\frame {
+		\titlepage
+	}
+	
+	\begin{frame}{Weekly Overview}
+		\begin{itemize}
+			\item Asn 3 is due on Friday.
+			\item We will go over, hypothesis testing and confidence intervals.
+			\item Correlation coefficients and coefficient of determination.
+			\item Prediction intervals and confidence intervals for new values.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Review of Confidence Intervals}
+		\begin{enumerate}[i)]
+			\item For confidence intervals of a parameter we need three things: the statistic for the parameter, the standard error of the statistic and the $\alpha$-level critical value at which to construct the confidence interval.
+			\item The basic formula for a CI: $\hat{\beta} \pm t^{df}_{\alpha/2}\cdot\sigma_{\hat{\beta}}$
+			\item Recall from MATH 203, that when we said find the $99\%$-CI for $\mu$ when $\bar{x}=1.2$ and standard error  $\sigma_{\bar{x}}=0.3$, with $n=24$.
+			\item The $99\%$ interval for $\mu$ will be, $1.2\pm 2.807\times 0.3=[0.358,2.042]$. 
+			\item Think about what the confidence interval tells us.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Hypothesis Test:}
+		\begin{enumerate}[i)]
+			\item Suppose we have a hypothesis, $\mathcal{H}_0: \beta = c$ vs $\mathcal{H}_1: \beta \neq c$
+			\item We need to calculate the appropriate statistic, $$T = \frac{\hat{\beta}-c}{\sigma_{\hat{\beta}}}$$
+			\item And then based on the distribution of $T$ we can decide the results of the hypothesis based either on the p-value or the rejection region.
+			\item Exercise: using the previous example, do the hypothesis when $c=0$ at level $\alpha = 0.05$. (\textbf{Ans}: We reject the $\mathcal{H}_0$).
+			\item Exercise: What do we do when $\mathcal{H}_1: \beta \geq \; (or \; \leq) \;   c$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Correlation Coefficient and Coefficient of Determination}
+		\begin{enumerate}[i)]
+			\item Measures the strength of the linear relationship and the direction of the relationship (sign)
+			\item $$r = \frac{SS_{xy}}{\sqrt{SS_{xx}SS_{yy}}}$$
+			\item $r$ takes the value between $[-1,1]$, with the end points showing perfect correlation and $r=0$ showing no correlation.
+			\item $r>0$ shows positive correlation and $r<0$ shows negative correlation.
+			\item At the same time $r^2=\frac{SSReg}{SST}=1-\frac{SSE}{SST}$, is the coefficient of determination. This describes what proportion of the variation in $Y$ is explained by our model. 
+		\end{enumerate}
+	\end{frame}
+	\begin{frame}{Hypothesis test for Correlation Coefficient}
+		\begin{enumerate}
+			\item Testing $\mathcal{H}_0: \rho = 0$ vs $\mathcal{H}_1: \rho \neq 0$ is equivalent to testing whether $\beta_1=0$.
+			\item Reference to seeing the equivalence of this test can by found in the Chapter 13 of the book or in class notes, Set-6.
+		\end{enumerate}
+	\end{frame}
+	\begin{frame}{Prediction errors:}
+		\begin{enumerate}[i)]
+			\item After we have estimated the model we can predict two things. The prediction interval of the mean-response will be at some specific value $x_p$ 
+			\item The $100(1-\alpha)\%$ confidence interval of the mean-response, $\hat{y}$, will be at some specific value $x_p$. This is given by, $\hat{y}\pm t^{n-2}_{\alpha/2}\times\hat{\sigma}\times\sqrt{\frac{1}{n}+\frac{(x_p-\bar{x})^2}{SS_{xx}}}$.
+			\item The $100(1-\alpha)\%$ prediction interval of $y$ at some new point $x_p$. This is given by, $\hat{y}\pm t^{n-2}_{\alpha/2}\times\hat{\sigma}\times\sqrt{1+\frac{1}{n}+\frac{(x_p-\bar{x})^2}{SS_{xx}}}$.
+			\item You can notice that for both the prediction and confidence term, the error is minimized when $x_p$ is as close to $\bar{x}$. 
+		\end{enumerate}
+	\end{frame}
+	\begin{frame}{Practice Problem: Swiss fertility data}
+		Using the data set provided, investigate how education affected the fertility rates in the 47 French speaking provinces in Switzerland around the time period 1888. The dependent variable is fertility and the independent variable is education. The units for education is, $\%$ education beyond primary school for draftees.
+		\begin{enumerate}[i)]
+			\item Regress fertility on education.
+			\item Test the hypothesis $\mathcal{H}_0:\hat{\beta_1}=0$ vs $\mathcal{H}_1:\hat{\beta_1}\neq 0$ at the level $\alpha=0.05$. State any assumptions made. What are your conclusions.
+			\item What does failure to reject this hypothesis imply?
+			\item Find the $99\%$ CI for $\hat{\beta_1}$. Do this by hand and use the $\mathtt{confint()}$ function.
+		\end{enumerate}
+	\end{frame}
+	\begin{frame}
+		\begin{enumerate}
+			\item[v)] Find $r$ and $r^2$. What can you say about these results?
+			\item[vi]) Plot the line of best fit and the predicted values.
+			\item[vii)] Find the $95\%$ CI and $95\%$ PI for $Education=15\%$. Do this by hand and use the $\mathtt{predict()}$ function.
+		\end{enumerate}
+	\end{frame}
+
+
+
+\end{document}
+
+
+
+
